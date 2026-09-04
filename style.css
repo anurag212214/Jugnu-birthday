@@ -545,23 +545,80 @@ button:hover {
 .rain-memory {
   position: relative;
 }
-.rain-drop {
-  position: absolute;
-  top: -30px;
-  width: 2px;
-  height: 22px;
-  background: rgba(255, 255, 255, 0.75);
-  border-radius: 50%;
-  transform: rotate(12deg);
-  animation: fallingRain linear infinite;
+/* =========================
+   CINEMATIC ROMANTIC RAIN
+========================= */
+
+.rain-photo {
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes fallingRain {
+.rain-photo img {
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.rain-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Main rain drops */
+.rain-drop {
+  position: absolute;
+  top: -40px;
+  width: 2px;
+  height: 30px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255,255,255,0.9),
+    rgba(220,235,255,0.45)
+  );
+
+  border-radius: 50%;
+  filter: blur(0.3px);
+
+  transform: rotate(18deg);
+
+  animation: cinematicRain linear infinite;
+}
+
+/* Different size/glow automatically */
+.rain-drop:nth-child(3n) {
+  width: 1px;
+  height: 18px;
+  opacity: 0.5;
+}
+
+.rain-drop:nth-child(4n) {
+  width: 2px;
+  height: 38px;
+  opacity: 0.75;
+  filter: blur(0.7px);
+}
+
+.rain-drop:nth-child(7n) {
+  height: 12px;
+  opacity: 0.9;
+}
+
+/* Falling motion */
+@keyframes cinematicRain {
+
   0% {
-    transform: translateY(-30px) rotate(12deg);
+    transform: translate3d(0, -50px, 0) rotate(18deg);
   }
 
   100% {
-    transform: translateY(700px) rotate(12deg);
+    transform: translate3d(-120px, 650px, 0) rotate(18deg);
   }
+
 }
