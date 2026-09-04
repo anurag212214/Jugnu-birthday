@@ -139,3 +139,17 @@ const sectionObserver = new IntersectionObserver(
 sections.forEach((section) => {
   sectionObserver.observe(section);
 });
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+function toggleMusic() {
+  if (bgMusic.paused) {
+    bgMusic.play();
+    musicBtn.innerHTML = "🔊";
+    musicBtn.classList.add("playing");
+  } else {
+    bgMusic.pause();
+    musicBtn.innerHTML = "🎵";
+    musicBtn.classList.remove("playing");
+  }
+}
