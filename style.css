@@ -685,12 +685,16 @@ button:hover {
   box-shadow:
     0 8px 25px rgba(0,0,0,0.2);
 
+  /* CLOSED: letter hidden inside envelope */
   z-index: 2;
 
-  transform: translateY(0);
+  transform: translateY(100px);
+
+  opacity: 0;
 
   transition:
-    transform 1s ease 0.35s;
+    transform 1s ease 0.35s,
+    opacity 0.5s ease 0.35s;
 }
 
 /* Letter writing */
@@ -806,6 +810,7 @@ button:hover {
 
 .envelope-wrapper.open .letter-paper {
   transform: translateY(-115px);
+  opacity: 1;
   z-index: 6;
 }
 
