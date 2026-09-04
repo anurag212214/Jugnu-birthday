@@ -433,8 +433,8 @@ button:hover {
 
 .reason {
   display: flex;
+}
 
- 
 /* 🎵 MUSIC BUTTON */
 
 .music-btn {
@@ -640,6 +640,7 @@ button:hover {
   width: 330px;
   height: 220px;
   transform-style: preserve-3d;
+  overflow: visible;
 }
 
 /* Envelope body */
