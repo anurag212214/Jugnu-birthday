@@ -1,4 +1,9 @@
+/* =========================
+   OPEN SURPRISE
+========================= */
+
 function openSurprise() {
+
   const opening = document.getElementById("opening");
   const mainContent = document.getElementById("mainContent");
 
@@ -6,22 +11,31 @@ function openSurprise() {
   opening.style.opacity = "0";
 
   setTimeout(() => {
-  opening.classList.add("hidden");
-  mainContent.classList.remove("hidden");
 
-  const bgMusic = document.getElementById("bgMusic");
-  const musicBtn = document.getElementById("musicBtn");
+    opening.classList.add("hidden");
+    mainContent.classList.remove("hidden");
 
-  bgMusic.play();
-  musicBtn.innerHTML = "🔊";
-  musicBtn.classList.add("playing");
+    const bgMusic = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
 
-  window.scrollTo({
+    if (bgMusic) {
+      bgMusic.play().catch(() => {
+        console.log("Music needs user interaction.");
+      });
+    }
+
+    if (musicBtn) {
+      musicBtn.innerHTML = "🔊";
+      musicBtn.classList.add("playing");
+    }
+
+    window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
 
     createHearts();
+
   }, 1200);
 }
 
@@ -41,8 +55,12 @@ function createHearts() {
     heart.style.position = "fixed";
     heart.style.left = Math.random() * 100 + "vw";
     heart.style.bottom = "-30px";
-    heart.style.fontSize = (10 + Math.random() * 18) + "px";
-    heart.style.color = "rgba(233,166,197,0.7)";
+    heart.style.fontSize =
+      (10 + Math.random() * 18) + "px";
+
+    heart.style.color =
+      "rgba(233,166,197,0.7)";
+
     heart.style.pointerEvents = "none";
     heart.style.zIndex = "9999";
 
@@ -86,92 +104,139 @@ const revealElements = document.querySelectorAll(
   ".story-card, .photo-card, .reason, .letter"
 );
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
+if ("IntersectionObserver" in window) {
 
-    entries.forEach((entry) => {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
 
-      if (entry.isIntersecting) {
+      entries.forEach((entry) => {
 
-        entry.target.style.opacity = "1";
-        entry.target.style.transform += " translateY(0)";
+        if (entry.isIntersecting) {
 
-        revealObserver.unobserve(entry.target);
-      }
+          entry.target.style.opacity = "1";
+          entry.target.style.transform +=
+            " translateY(0)";
 
-    });
+          revealObserver.unobserve(entry.target);
+        }
 
-  },
-  {
-    threshold: 0.15
-  }
-);
+      });
 
+    },
+    {
+      threshold: 0.15
+    }
+  );
 
-revealElements.forEach((element) => {
-  element.style.opacity = "0";
-  element.style.transition =
-    "opacity 1s ease, transform 1s ease";
+  revealElements.forEach((element) => {
 
-  revealObserver.observe(element);
-});
+    element.style.opacity = "0";
+
+    element.style.transition =
+      "opacity 1s ease, transform 1s ease";
+
+    revealObserver.observe(element);
+
+  });
+
+}
 
 
 /* =========================
    SECTION FADE
 ========================= */
 
-const sections = document.querySelectorAll("section");
+const sections =
+  document.querySelectorAll("section");
 
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
+if ("IntersectionObserver" in window) {
 
-    entries.forEach((entry) => {
+  const sectionObserver =
+    new IntersectionObserver(
+      (entries) => {
 
-      if (entry.isIntersecting) {
+        entries.forEach((entry) => {
 
-        entry.target.classList.add("visible");
+          if (entry.isIntersecting) {
 
+            entry.target.classList.add("visible");
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.15
       }
+    );
 
-    });
+  sections.forEach((section) => {
+    sectionObserver.observe(section);
+  });
 
-  },
-  {
-    threshold: 0.15
-  }
-);
+}
 
 
-sections.forEach((section) => {
-  sectionObserver.observe(section);
-});
-
+/* =========================
+   MUSIC
+========================= */
 
 function toggleMusic() {
+
+  const bgMusic =
+    document.getElementById("bgMusic");
+
+  const musicBtn =
+    document.getElementById("musicBtn");
+
+  if (!bgMusic) return;
+
   if (bgMusic.paused) {
-    bgMusic.play();
-    musicBtn.innerHTML = "🔊";
-    musicBtn.classList.add("playing");
+
+    bgMusic.play().catch(() => {});
+
+    if (musicBtn) {
+      musicBtn.innerHTML = "🔊";
+      musicBtn.classList.add("playing");
+    }
+
   } else {
+
     bgMusic.pause();
-    musicBtn.innerHTML = "🎵";
-    musicBtn.classList.remove("playing");
+
+    if (musicBtn) {
+      musicBtn.innerHTML = "🎵";
+      musicBtn.classList.remove("playing");
+    }
+
   }
 }
+
+
+/* =========================
+   RAIN EFFECT
+========================= */
+
 function createRain() {
-  const rainLayer = document.querySelector(".rain-layer");
+
+  const rainLayer =
+    document.querySelector(".rain-layer");
 
   if (!rainLayer) return;
 
   rainLayer.innerHTML = "";
 
   for (let i = 0; i < 90; i++) {
-    const drop = document.createElement("span");
+
+    const drop =
+      document.createElement("span");
 
     drop.className = "rain-drop";
 
-    drop.style.left = Math.random() * 100 + "%";
+    drop.style.left =
+      Math.random() * 100 + "%";
+
     drop.style.animationDuration =
       (0.5 + Math.random() * 0.7) + "s";
 
@@ -185,17 +250,25 @@ function createRain() {
   }
 }
 
-createRain();
+
 /* =========================
    OPEN ROMANTIC LETTER
 ========================= */
 
 function openLetter() {
 
-  const envelope = document.querySelector(".envelope-wrapper");
+  const envelope =
+    document.querySelector(".envelope-wrapper");
 
   if (!envelope) return;
 
   envelope.classList.toggle("open");
 
 }
+
+
+/* =========================
+   START RAIN
+========================= */
+
+createRain();
