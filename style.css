@@ -545,3 +545,23 @@ button:hover {
 .rain-memory {
   position: relative;
 }
+.rain-drop {
+  position: absolute;
+  top: -30px;
+  width: 2px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 50%;
+  transform: rotate(12deg);
+  animation: fallingRain linear infinite;
+}
+
+@keyframes fallingRain {
+  0% {
+    transform: translateY(-30px) rotate(12deg);
+  }
+
+  100% {
+    transform: translateY(700px) rotate(12deg);
+  }
+}
