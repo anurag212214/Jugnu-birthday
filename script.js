@@ -6,10 +6,17 @@ function openSurprise() {
   opening.style.opacity = "0";
 
   setTimeout(() => {
-    opening.classList.add("hidden");
-    mainContent.classList.remove("hidden");
+  opening.classList.add("hidden");
+  mainContent.classList.remove("hidden");
 
-    window.scrollTo({
+  const bgMusic = document.getElementById("bgMusic");
+  const musicBtn = document.getElementById("musicBtn");
+
+  bgMusic.play();
+  musicBtn.innerHTML = "🔊";
+  musicBtn.classList.add("playing");
+
+  window.scrollTo({
       top: 0,
       behavior: "smooth"
     });
@@ -139,8 +146,7 @@ const sectionObserver = new IntersectionObserver(
 sections.forEach((section) => {
   sectionObserver.observe(section);
 });
-const bgMusic = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
+
 
 function toggleMusic() {
   if (bgMusic.paused) {
