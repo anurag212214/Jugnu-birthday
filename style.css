@@ -816,7 +816,6 @@ pointer-events: none;
   pointer-events: auto;
   z-index: 6;
 }
-}
 
 .envelope-wrapper.open .envelope-heart {
   opacity: 0;
