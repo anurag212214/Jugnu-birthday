@@ -7,12 +7,7 @@ function openSurprise() {
 
   setTimeout(() => {
     opening.classList.add("hidden");
-    mainContent.classList.remove("hidden");const bgMusic = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
-
-bgMusic.play();
-musicBtn.innerHTML = "🔊";
-musicBtn.classList.add("playing");
+    mainContent.classList.remove("hidden");
 
     window.scrollTo({
       top: 0,
