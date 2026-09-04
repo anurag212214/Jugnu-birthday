@@ -159,3 +159,30 @@ function toggleMusic() {
     musicBtn.classList.remove("playing");
   }
 }
+function createRain() {
+  const rainLayer = document.querySelector(".rain-layer");
+
+  if (!rainLayer) return;
+
+  rainLayer.innerHTML = "";
+
+  for (let i = 0; i < 90; i++) {
+    const drop = document.createElement("span");
+
+    drop.className = "rain-drop";
+
+    drop.style.left = Math.random() * 100 + "%";
+    drop.style.animationDuration =
+      (0.5 + Math.random() * 0.7) + "s";
+
+    drop.style.animationDelay =
+      Math.random() * 1.5 + "s";
+
+    drop.style.opacity =
+      0.3 + Math.random() * 0.6;
+
+    rainLayer.appendChild(drop);
+  }
+}
+
+createRain();
