@@ -186,3 +186,16 @@ function createRain() {
 }
 
 createRain();
+/* =========================
+   OPEN ROMANTIC LETTER
+========================= */
+
+function openLetter() {
+
+  const envelope = document.querySelector(".envelope-wrapper");
+
+  if (!envelope) return;
+
+  envelope.classList.toggle("open");
+
+}
