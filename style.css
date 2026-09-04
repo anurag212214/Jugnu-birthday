@@ -808,21 +808,19 @@ pointer-events: none;
 
 .envelope-wrapper.open .envelope-flap {
   transform: rotateX(180deg);
-  z-index: 1;
+ .envelope-wrapper:not(.open) .letter-paper {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(120px) scale(0.95);
+  pointer-events: none;
 }
 
 .envelope-wrapper.open .letter-paper {
+  opacity: 1 !important;
+  visibility: visible !important;
   transform: translateY(-115px) scale(1);
-  opacity: 1;
   pointer-events: auto;
   z-index: 6;
-}
-
-.envelope-wrapper.open .envelope-heart {
-  opacity: 0;
-  transform:
-    translate(-50%, -50%)
-    scale(0.5);
 }
 
 /* Hint */
