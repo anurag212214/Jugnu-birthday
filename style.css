@@ -30,14 +30,24 @@ section {
   display: none !important;
 }
 
+
 /* =========================
-   OPENING
+   OPENING SCREEN
 ========================= */
 
 .opening {
   background:
-    radial-gradient(circle at 50% 35%, rgba(150, 35, 90, 0.28), transparent 38%),
-    linear-gradient(145deg, #08070b, #160b14, #08070b);
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(150, 35, 90, 0.28),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      #08070b,
+      #160b14,
+      #08070b
+    );
   overflow: hidden;
 }
 
@@ -63,10 +73,11 @@ section {
 }
 
 .opening-content {
+  width: 100%;
   max-width: 650px;
-  animation: fadeUp 1.5s ease;
   position: relative;
   z-index: 2;
+  animation: fadeUp 1.5s ease;
 }
 
 .small-text {
@@ -109,13 +120,18 @@ button:hover {
   box-shadow: 0 10px 35px rgba(220, 80, 140, 0.2);
 }
 
+
 /* =========================
    HERO
 ========================= */
 
 .hero {
   background:
-    radial-gradient(circle at 50% 40%, rgba(170, 40, 100, 0.2), transparent 38%),
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(170, 40, 100, 0.2),
+      transparent 38%
+    ),
     #08070b;
 }
 
@@ -154,8 +170,9 @@ button:hover {
   letter-spacing: 2px;
 }
 
+
 /* =========================
-   COMMON
+   COMMON SECTIONS
 ========================= */
 
 .section-label {
@@ -175,8 +192,17 @@ button:hover {
   margin-bottom: 30px;
 }
 
+
+/* =========================
+   OUR STORY
+========================= */
+
 .story {
-  background: linear-gradient(#08070b, #110a10);
+  background:
+    linear-gradient(
+      #08070b,
+      #110a10
+    );
 }
 
 .story-text {
@@ -193,7 +219,8 @@ button:hover {
   border: 1px solid rgba(230, 160, 195, 0.2);
   background: rgba(255, 255, 255, 0.035);
   border-radius: 25px;
-  box-shadow: 0 0 50px rgba(150, 30, 90, 0.12);
+  box-shadow:
+    0 0 50px rgba(150, 30, 90, 0.12);
   backdrop-filter: blur(8px);
 }
 
@@ -214,118 +241,197 @@ button:hover {
   font-weight: normal;
 }
 
+
 /* =========================
-   OUR JOURNEY / PHOTOS
+   OUR JOURNEY
 ========================= */
 
 .memories {
   background:
-    radial-gradient(circle at 50% 20%, rgba(150, 30, 85, 0.1), transparent 40%),
+    radial-gradient(
+      circle at 50% 15%,
+      rgba(150, 30, 85, 0.13),
+      transparent 40%
+    ),
     #0b080d;
+
   min-height: auto;
+
   padding-top: 110px;
-  padding-bottom: 110px;
+  padding-bottom: 120px;
 }
+
+.journey-intro {
+  max-width: 600px;
+  color: #bcaeb6;
+  line-height: 1.9;
+  font-size: 16px;
+  margin-bottom: 50px;
+}
+
+
+/* =========================
+   PHOTO CONTAINER
+========================= */
 
 .photo-grid {
   width: 100%;
-  max-width: 1050px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-top: 35px;
-  align-items: start;
+  max-width: 760px;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 100px;
+
+  margin-top: 15px;
 }
 
+
+/* =========================
+   PHOTO CARD
+========================= */
+
 .photo-card {
-  position: relative;
+  width: 100%;
+
   background: #f2e9e7;
+
   color: #282027;
-  padding: 10px 10px 18px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
-  transition: 0.5s ease;
+
+  padding: 12px 12px 24px;
+
+  box-shadow:
+    0 25px 65px rgba(0, 0, 0, 0.6);
+
+  position: relative;
+
+  transition:
+    transform 0.6s ease,
+    box-shadow 0.6s ease;
+
   overflow: hidden;
+
   opacity: 0;
+
   animation: photoReveal 1s ease forwards;
 }
 
-.photo-card:nth-child(1) {
-  transform: rotate(-2deg);
-  animation-delay: 0.05s;
-}
 
-.photo-card:nth-child(2) {
-  transform: rotate(2deg);
-  animation-delay: 0.1s;
-}
+/* Alternating cinematic tilt */
 
-.photo-card:nth-child(3) {
-  transform: rotate(-1deg);
-  animation-delay: 0.15s;
-}
-
-.photo-card:nth-child(4) {
-  transform: rotate(2deg);
-  animation-delay: 0.2s;
-}
-
-.photo-card:nth-child(5) {
-  transform: rotate(-2deg);
-  animation-delay: 0.25s;
-}
-
-.photo-card:nth-child(6) {
-  transform: rotate(1deg);
-  animation-delay: 0.3s;
-}
-
-.photo-card:nth-child(7) {
+.photo-card:nth-child(odd) {
   transform: rotate(-1deg);
 }
 
-.photo-card:nth-child(8) {
-  transform: rotate(2deg);
-}
-
-.photo-card:nth-child(9) {
-  transform: rotate(-2deg);
-}
-
-.photo-card:nth-child(10) {
+.photo-card:nth-child(even) {
   transform: rotate(1deg);
 }
 
-.photo-card:nth-child(11) {
-  transform: rotate(-1deg);
+
+/* Hover */
+
+.photo-card:hover {
+  transform:
+    rotate(0deg)
+    scale(1.025);
+
+  box-shadow:
+    0 35px 80px rgba(0, 0, 0, 0.75);
+
+  z-index: 5;
 }
 
-.photo-card:nth-child(12) {
-  transform: rotate(2deg);
+
+/* =========================
+   ACTUAL PHOTOS
+========================= */
+
+.photo-card img {
+  width: 100%;
+
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+
+  background: #120b10;
+
+  transition:
+    transform 0.7s ease,
+    filter 0.7s ease;
 }
 
-.photo-card:nth-child(13) {
-  transform: rotate(-2deg);
+
+/* Slight cinematic zoom */
+
+.photo-card:hover img {
+  transform: scale(1.015);
 }
 
-.photo-card:nth-child(14) {
-  transform: rotate(1deg);
+
+/* =========================
+   PHOTO CAPTION
+========================= */
+
+.photo-card p {
+  margin-top: 18px;
+
+  padding: 0 8px;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+
+  text-align: center;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 }
 
-.photo-card:nth-child(15) {
-  transform: rotate(-1deg);
+
+/* =========================
+   JOURNEY END TEXT
+========================= */
+
+.hint {
+  margin-top: 75px;
+
+  max-width: 400px;
+
+  color: #8e7d86;
+
+  font-size: 12px;
+
+  letter-spacing: 1px;
+
+  line-height: 1.8;
 }
 
-.photo-card:nth-child(16) {
-  transform: rotate(2deg);
+
+/* =========================
+   JUST FOR YOU
+========================= */
+
+.reasons {
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(110, 30, 70, 0.16),
+      transparent 45%
+    ),
+    #08070b;
 }
 
-.photo-card:nth-child(17) {
-  transform: rotate(-2deg);
+.reason-list {
+  width: 100%;
+  max-width: 650px;
+  margin-top: 20px;
 }
 
-.photo-card:nth-child(18) {
-  transform: rotate(1deg);
-}
+.reason {
+  display: flex;
 
-.photo-card:nth-child(19) {
-  transform: rotate(-
+ 
