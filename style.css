@@ -688,9 +688,11 @@ button:hover {
   /* CLOSED: letter hidden inside envelope */
   z-index: 2;
 
-  transform: translateY(100px);
+  transform: translateY(120px) scale(0.95);
 
-  opacity: 0;
+opacity: 0;
+
+pointer-events: none;
 
   transition:
     transform 1s ease 0.35s,
@@ -809,9 +811,11 @@ button:hover {
 }
 
 .envelope-wrapper.open .letter-paper {
-  transform: translateY(-115px);
+  transform: translateY(-115px) scale(1);
   opacity: 1;
+  pointer-events: auto;
   z-index: 6;
+}
 }
 
 .envelope-wrapper.open .envelope-heart {
