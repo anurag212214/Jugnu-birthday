@@ -622,3 +622,222 @@ button:hover {
   }
 
 }
+/* =========================
+   ROMANTIC LETTER ENVELOPE
+========================= */
+
+.envelope-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 70px auto 120px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.envelope {
+  position: relative;
+  width: 330px;
+  height: 220px;
+  transform-style: preserve-3d;
+}
+
+/* Envelope body */
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #8f3152, #55172e);
+  border-radius: 10px;
+
+  box-shadow:
+    0 25px 55px rgba(0,0,0,0.35),
+    0 0 35px rgba(233,166,197,0.18);
+
+  z-index: 1;
+}
+
+/* Letter */
+.letter-paper {
+  position: absolute;
+
+  left: 7%;
+  bottom: 5%;
+
+  width: 86%;
+  height: 90%;
+
+  box-sizing: border-box;
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fffdf8,
+      #fff7f0
+    );
+
+  color: #49323a;
+
+  border-radius: 5px;
+
+  overflow-y: auto;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.2);
+
+  z-index: 2;
+
+  transform: translateY(0);
+
+  transition:
+    transform 1s ease 0.35s;
+}
+
+/* Letter writing */
+.letter-paper p {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  line-height: 1.7;
+
+  text-align: left;
+
+  margin: 0 0 17px;
+}
+
+.letter-paper .signature {
+  text-align: right;
+  font-style: italic;
+}
+
+/* Front pocket */
+.envelope-front {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      145deg,
+      #aa3d62,
+      #711d3d
+    );
+
+  clip-path: polygon(
+    0 0,
+    50% 55%,
+    100% 0,
+    100% 100%,
+    0 100%
+  );
+
+  z-index: 4;
+}
+
+/* Envelope flap */
+.envelope-flap {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #c54d72,
+      #7e2043
+    );
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    50% 55%
+  );
+
+  transform-origin: top center;
+
+  transition:
+    transform 1s ease,
+    z-index 0s 0.4s;
+
+  z-index: 5;
+}
+
+/* Heart seal */
+.envelope-heart {
+  position: absolute;
+
+  left: 50%;
+  top: 48%;
+
+  width: 48px;
+  height: 48px;
+
+  transform:
+    translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(255,255,255,0.96);
+
+  border-radius: 50%;
+
+  font-size: 22px;
+
+  box-shadow:
+    0 5px 18px rgba(0,0,0,0.25);
+
+  z-index: 6;
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.5s ease;
+}
+
+/* OPEN ENVELOPE */
+
+.envelope-wrapper.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope-wrapper.open .letter-paper {
+  transform: translateY(-115px);
+  z-index: 6;
+}
+
+.envelope-wrapper.open .envelope-heart {
+  opacity: 0;
+  transform:
+    translate(-50%, -50%)
+    scale(0.5);
+}
+
+/* Hint */
+.envelope-hint {
+  margin-top: 15px;
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+  .envelope {
+    width: 290px;
+    height: 195px;
+  }
+
+  .letter-paper {
+    padding: 18px;
+  }
+
+  .letter-paper p {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+}
