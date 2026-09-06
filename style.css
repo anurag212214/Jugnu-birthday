@@ -158,9 +158,9 @@ button:hover {
 }
 
 .scroll {
-.scroll {
-  position: absolute;
-  bottom: 75px;
+  position: relative;
+  bottom: auto;
+  margin-top: 28px;
   color: #b995a7;
   font-size: 20px;
   animation: float 2s infinite ease-in-out;
