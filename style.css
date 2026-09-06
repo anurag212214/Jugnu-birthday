@@ -1901,36 +1901,27 @@ pointer-events: none;
   }
 
 }
-/* =========================
-   FIX: SCROLL SLOWLY POSITION
-========================= */
+/* SCROLL SLOWLY — FINAL POSITION FIX */
 
 .hero .scroll {
   position: relative !important;
   left: auto !important;
   bottom: auto !important;
-
+  margin-top: 28px !important;
   transform: none !important;
 
-  margin-top: 28px !important;
-
+  color: #b995a7 !important;
   text-align: center;
-  z-index: 10;
+  z-index: 20;
 
-  color: rgba(215, 168, 189, 0.85);
-
-  opacity: 0;
-  animation:
-    scrollReveal 1.2s ease 2.5s forwards,
-    scrollFloat 2.5s ease-in-out 3.5s infinite;
+  opacity: 1 !important;
+  animation: float 2s infinite ease-in-out !important;
 }
 
 .hero .scroll span {
   display: block !important;
-  margin-top: 7px !important;
-
-  font-size: 10px !important;
-  letter-spacing: 3px;
-
-  color: rgba(220, 200, 210, 0.75);
+  margin-top: 6px !important;
+  font-size: 11px !important;
+  letter-spacing: 3px !important;
+  color: #b995a7 !important;
 }
