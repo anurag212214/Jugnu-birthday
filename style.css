@@ -2111,3 +2111,67 @@ pointer-events: none;
   }
 
 }
+/* =========================================
+   CINEMATIC MEMORY SCROLL REVEAL
+========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const memories = document.querySelectorAll(".photo-card");
+  const hint = document.querySelector(".memories .hint");
+
+  const memoryObserver = new IntersectionObserver(
+    (entries) => {
+
+      entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+
+          entry.target.classList.add("show");
+
+          memoryObserver.unobserve(entry.target);
+
+        }
+
+      });
+
+    },
+    {
+      threshold: 0.22,
+      rootMargin: "0px 0px -8% 0px"
+    }
+  );
+
+  memories.forEach((memory) => {
+    memoryObserver.observe(memory);
+  });
+
+
+  /* Final memory hint reveal */
+
+  if (hint) {
+
+    const hintObserver = new IntersectionObserver(
+      (entries) => {
+
+        entries.forEach((entry) => {
+
+          if (entry.isIntersecting) {
+
+            hint.classList.add("show");
+            hintObserver.unobserve(entry.target);
+
+          }
+
+        });
+
+      },
+      {
+        threshold: 0.5
+      }
+    );
+
+    hintObserver.observe(hint);
+  }
+
+});
