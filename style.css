@@ -804,23 +804,36 @@ pointer-events: none;
     transform 0.5s ease;
 }
 
-/* OPEN ENVELOPE */
+/* =========================
+   OPEN ENVELOPE
+========================= */
 
 .envelope-wrapper.open .envelope-flap {
   transform: rotateX(180deg);
- .envelope-wrapper:not(.open) .letter-paper {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  transform: translateY(120px) scale(0.95);
+  z-index: 3;
+}
+
+/* Letter CLOSED */
+.envelope-wrapper:not(.open) .letter-paper {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(120px) scale(0.95);
   pointer-events: none;
 }
 
-..envelope-wrapper.open .letter-paper {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: translateY(-115px) scale(1);
+/* Letter OPEN */
+.envelope-wrapper.open .letter-paper {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-115px) scale(1);
   pointer-events: auto;
-  z-index: 20 !important;
+  z-index: 20;
+}
+
+/* Heart */
+.envelope-wrapper.open .envelope-heart {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
 }
 
 /* Hint */
@@ -847,90 +860,4 @@ pointer-events: none;
     line-height: 1.6;
   }
 
-}
-/* ===== LETTER FIX ===== */
-
-.envelope-wrapper {
-  position: relative;
-  z-index: 10;
-}
-
-.envelope {
-  position: relative;
-  overflow: visible !important;
-}
-
-/* Letter should come out above the envelope */
-.envelope-wrapper .letter-paper {
-  position: absolute !important;
-  left: 50% !important;
-  bottom: 0 !important;
-  transform: translateX(-50%) translateY(0) !important;
-
-  width: 88% !important;
-  max-height: 420px !important;
-
-  background: #fffdf8 !important;
-  color: #333 !important;
-
-  padding: 25px !important;
-  box-sizing: border-box !important;
-
-  border-radius: 8px !important;
-
-  opacity: 0 !important;
-  visibility: hidden !important;
-
-  z-index: 50 !important;
-
-  overflow-y: auto !important;
-  pointer-events: none !important;
-
-  transition: transform 0.8s ease, opacity 0.5s ease !important;
-}
-
-/* When envelope opens */
-.envelope-wrapper.open .letter-paper {
-  opacity: 1 !important;
-  visibility: visible !important;
-
-  transform: translateX(-50%) translateY(-115px) !important;
-
-  pointer-events: auto !important;
-  z-index: 50 !important;
-}
-
-/* Keep text readable */
-.envelope-wrapper .letter-paper p {
-  position: relative;
-  z-index: 2;
-  margin: 0 0 16px;
-  line-height: 1.7;
-}
-
-/* Signature */
-.envelope-wrapper .letter-paper .signature {
-  margin-top: 25px;
-  text-align: center;
-}
-
-/* Envelope layers stay below the letter */
-.envelope-back,
-.envelope-front,
-.envelope-flap,
-.envelope-heart {
-  position: absolute;
-  z-index: 5;
-}
-
-.envelope-wrapper.open .envelope-flap {
-  z-index: 4;
-}
-
-.envelope-wrapper.open .envelope-front {
-  z-index: 6;
-}
-
-.envelope-wrapper.open .envelope-heart {
-  z-index: 7;
 }
