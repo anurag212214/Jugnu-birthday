@@ -661,11 +661,11 @@ button:hover {
 .letter-paper {
   position: absolute;
 
-  left: 7%;
+  left: 50%;
   bottom: 5%;
 
   width: 86%;
-  height: 90%;
+  height: 420px;
 
   box-sizing: border-box;
   padding: 24px;
