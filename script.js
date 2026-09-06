@@ -279,3 +279,33 @@ document.addEventListener("DOMContentLoaded", () => {
   updateMusic(false);
 
 });
+window.makeWish = function () {
+  const flames = document.querySelectorAll(".cake .flame");
+  const hint = document.querySelector(".cake-tap-hint");
+  const message = document.getElementById("wishMessage");
+
+  flames.forEach(flame => {
+    flame.classList.add("blown");
+  });
+
+  if (hint) {
+    hint.textContent = "Wish sent into the stars ✨❤️";
+    hint.classList.add("wish-made");
+  }
+
+  if (message) {
+    message.textContent = "May your wish find its way to you. ❤️";
+    message.classList.add("wish-made");
+  }
+
+  createHearts(15);
+  createConfetti(60);
+
+  setTimeout(() => {
+    document.querySelector(".final")
+      ?.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+  }, 2800);
+};
