@@ -32,92 +32,678 @@ section {
 
 
 /* =========================
-   OPENING SCREEN
+/* =========================
+   CINEMATIC BIRTHDAY OPENING
 ========================= */
 
 .opening {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+
   background:
     radial-gradient(
-      circle at 50% 35%,
-      rgba(150, 35, 90, 0.28),
+      circle at 50% 42%,
+      rgba(210, 70, 130, 0.20),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 50% 70%,
+      rgba(120, 35, 90, 0.16),
       transparent 38%
     ),
     linear-gradient(
       145deg,
-      #08070b,
-      #160b14,
-      #08070b
+      #050409,
+      #120812,
+      #08060c
     );
-  overflow: hidden;
 }
 
-.opening::before,
-.opening::after {
-  content: "✦";
+/* Ambient glow */
+
+.opening-glow {
   position: absolute;
-  color: rgba(255, 190, 220, 0.7);
-  animation: twinkle 3s infinite ease-in-out;
+
+  width: 420px;
+  height: 420px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(245, 150, 195, 0.13),
+      rgba(150, 50, 110, 0.05) 40%,
+      transparent 70%
+    );
+
+  filter: blur(8px);
+
+  animation: openingGlow 5s ease-in-out infinite;
+
+  pointer-events: none;
 }
 
-.opening::before {
-  top: 18%;
-  left: 18%;
-  font-size: 20px;
+
+/* Stars */
+
+.opening-stars,
+.opening-stars::before,
+.opening-stars::after {
+  position: absolute;
+
+  content: "";
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: rgba(255,255,255,0.75);
+
+  box-shadow:
+    10vw 12vh rgba(255,255,255,0.5),
+    22vw 30vh rgba(255,190,220,0.8),
+    35vw 14vh rgba(255,255,255,0.45),
+    48vw 25vh rgba(255,210,230,0.7),
+    63vw 12vh rgba(255,255,255,0.5),
+    78vw 28vh rgba(255,190,220,0.7),
+    88vw 16vh rgba(255,255,255,0.45),
+    15vw 68vh rgba(255,190,220,0.6),
+    31vw 82vh rgba(255,255,255,0.5),
+    69vw 76vh rgba(255,190,220,0.6),
+    84vw 64vh rgba(255,255,255,0.45),
+    93vw 82vh rgba(255,190,220,0.5);
+
+  animation: starTwinkle 4s ease-in-out infinite;
 }
 
-.opening::after {
-  bottom: 20%;
-  right: 18%;
-  font-size: 15px;
+.opening-stars {
+  left: 0;
+  top: 0;
+  opacity: 0.8;
+}
+
+.opening-stars::before {
+  transform: translate(5px, 20px);
+  opacity: 0.5;
   animation-delay: 1s;
 }
+
+.opening-stars::after {
+  transform: translate(-5px, -10px);
+  opacity: 0.4;
+  animation-delay: 2s;
+}
+
+
+/* Soft orbit ring */
+
+.opening-orbit {
+  position: absolute;
+
+  width: min(75vw, 520px);
+  height: min(75vw, 520px);
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(255,190,220,0.07);
+
+  border-radius: 50%;
+
+  animation: orbitFloat 12s linear infinite;
+
+  pointer-events: none;
+}
+
+.opening-orbit::before,
+.opening-orbit::after {
+  content: "✦";
+
+  position: absolute;
+
+  color: rgba(255,190,220,0.55);
+
+  font-size: 10px;
+}
+
+.opening-orbit::before {
+  top: 8%;
+  left: 15%;
+}
+
+.opening-orbit::after {
+  bottom: 12%;
+  right: 13%;
+}
+
+
+/* Main content */
 
 .opening-content {
   width: 100%;
   max-width: 650px;
+
   position: relative;
-  z-index: 2;
-  animation: fadeUp 1.5s ease;
+
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  animation: openingEnter 2s ease both;
 }
 
-.small-text {
-  font-size: 13px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
+
+/* Top text */
+
+.opening-kicker {
+  font-size: 10px;
+
+  letter-spacing: 5px;
+
   color: #d7a8bd;
-  margin-bottom: 22px;
+
+  margin-bottom: 18px;
+
+  opacity: 0;
+
+  animation:
+    openingFade 1.2s ease 0.3s forwards;
 }
 
-.opening h1 {
-  font-size: clamp(48px, 13vw, 90px);
+
+/* Decorative line */
+
+.opening-line {
+  width: 45px;
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,190,220,0.8),
+      transparent
+    );
+
+  margin-bottom: 30px;
+
+  opacity: 0;
+
+  animation:
+    openingLine 1.2s ease 0.8s forwards;
+}
+
+
+/* Main title */
+
+.opening-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 0;
+
+  line-height: 1;
+}
+
+
+/* For */
+
+.opening-for {
+  font-size: clamp(20px, 5vw, 30px);
+
+  font-style: italic;
+
   font-weight: normal;
-  margin-bottom: 25px;
+
+  color: #d9c5ce;
+
+  margin-bottom: 8px;
+
+  opacity: 0;
+
+  transform: translateY(15px);
+
+  animation:
+    titleUp 1s ease 1s forwards;
 }
 
-.intro {
+
+/* JUGNU */
+
+.opening-name {
+  font-size: clamp(58px, 17vw, 110px);
+
+  font-weight: normal;
+
+  letter-spacing: 7px;
+
+  color: #fff4f8;
+
+  text-shadow:
+    0 0 15px rgba(255,180,215,0.25),
+    0 0 45px rgba(200,70,130,0.18);
+
+  opacity: 0;
+
+  transform: scale(0.88);
+
+  animation:
+    nameReveal 1.5s cubic-bezier(.2,.8,.2,1) 1.25s forwards,
+    nameGlow 4s ease-in-out 3s infinite;
+}
+
+
+/* Heart */
+
+.opening-heart {
+  font-size: 25px;
+
+  margin-top: 18px;
+
+  opacity: 0;
+
+  transform: scale(0.5);
+
+  animation:
+    heartReveal 1s ease 2.1s forwards,
+    heartbeat 1.8s ease-in-out 3s infinite;
+}
+
+
+/* Date */
+
+.opening-date {
+  margin-top: 25px;
+
+  font-size: 11px;
+
+  letter-spacing: 5px;
+
+  color: #a9909c;
+
+  opacity: 0;
+
+  animation:
+    openingFade 1.2s ease 2.4s forwards;
+}
+
+
+/* Intro */
+
+.opening .intro {
+  margin-top: 35px;
+  margin-bottom: 32px;
+
   color: #c8bbc2;
+
   line-height: 1.9;
-  font-size: 17px;
-  margin-bottom: 35px;
-}
 
-button {
-  border: 1px solid rgba(255, 190, 220, 0.55);
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  padding: 16px 30px;
-  border-radius: 40px;
   font-size: 15px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  transition: 0.4s ease;
+
+  opacity: 0;
+
+  transform: translateY(12px);
+
+  animation:
+    titleUp 1.2s ease 2.7s forwards;
 }
 
-button:hover {
-  background: rgba(255, 150, 200, 0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 10px 35px rgba(220, 80, 140, 0.2);
+
+/* Surprise button */
+
+.surprise-btn {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  border: 1px solid rgba(255,190,220,0.45);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,0.08),
+      rgba(255,100,170,0.08)
+    );
+
+  color: #fff;
+
+  padding: 15px 24px;
+
+  border-radius: 50px;
+
+  font-size: 14px;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 0 0 rgba(230,100,160,0);
+
+  opacity: 0;
+
+  transform: translateY(15px);
+
+  animation:
+    titleUp 1.2s ease 3.2s forwards,
+    buttonGlow 2.8s ease-in-out 4.5s infinite;
+
+  transition:
+    transform 0.4s ease,
+    background 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.surprise-btn b {
+  font-size: 15px;
+
+  font-weight: normal;
+
+  animation: tinySpin 3s linear infinite;
+}
+
+.surprise-btn:hover {
+  transform: translateY(-4px) scale(1.03);
+
+  background:
+    rgba(255,150,200,0.15);
+
+  box-shadow:
+    0 12px 40px rgba(210,70,140,0.22);
+}
+
+.surprise-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* Tiny bottom note */
+
+.opening-note {
+  margin-top: 18px;
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  color: rgba(200,180,190,0.45);
+
+  opacity: 0;
+
+  animation:
+    openingFade 1.2s ease 3.8s forwards;
+}
+
+
+/* Bottom stars */
+
+.opening-bottom {
+  position: absolute;
+
+  bottom: 28px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  gap: 35px;
+
+  color: rgba(255,190,220,0.4);
+
+  font-size: 9px;
+
+  z-index: 3;
+
+  animation: bottomFloat 3s ease-in-out infinite;
+}
+
+
+/* =========================
+   OPENING ANIMATIONS
+========================= */
+
+@keyframes openingEnter {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+@keyframes openingFade {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+@keyframes openingLine {
+
+  from {
+    opacity: 0;
+    width: 0;
+  }
+
+  to {
+    opacity: 1;
+    width: 45px;
+  }
+
+}
+
+@keyframes titleUp {
+
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+@keyframes nameReveal {
+
+  from {
+    opacity: 0;
+    transform: scale(0.88);
+    letter-spacing: 14px;
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+    letter-spacing: 7px;
+  }
+
+}
+
+@keyframes heartReveal {
+
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+}
+
+@keyframes nameGlow {
+
+  0%, 100% {
+    text-shadow:
+      0 0 15px rgba(255,180,215,0.25),
+      0 0 45px rgba(200,70,130,0.18);
+  }
+
+  50% {
+    text-shadow:
+      0 0 25px rgba(255,180,215,0.45),
+      0 0 70px rgba(220,80,150,0.30);
+  }
+
+}
+
+@keyframes openingGlow {
+
+  0%, 100% {
+    opacity: 0.55;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+}
+
+@keyframes starTwinkle {
+
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+
+}
+
+@keyframes orbitFloat {
+
+  from {
+    transform:
+      translate(-50%, -50%)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -50%)
+      rotate(360deg);
+  }
+
+}
+
+@keyframes buttonGlow {
+
+  0%, 100% {
+    box-shadow:
+      0 0 0 rgba(230,100,160,0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 28px rgba(230,100,160,0.20);
+  }
+
+}
+
+@keyframes tinySpin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+@keyframes bottomFloat {
+
+  0%, 100% {
+    opacity: 0.35;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateX(-50%) translateY(-5px);
+  }
+
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+  .opening-content {
+    padding: 0 18px;
+  }
+
+  .opening-name {
+    letter-spacing: 5px;
+  }
+
+  .opening-date {
+    letter-spacing: 3px;
+  }
+
+  .opening .intro {
+    font-size: 14px;
+    margin-top: 30px;
+  }
+
+  .surprise-btn {
+    padding: 14px 21px;
+    font-size: 13px;
+  }
+
+  .opening-orbit {
+    width: 92vw;
+    height: 92vw;
+  }
+
 }
 
 
