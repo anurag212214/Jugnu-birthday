@@ -262,8 +262,23 @@ function openLetter() {
 
   if (!envelope) return;
 
+  const wasOpen = envelope.classList.contains("open");
+
   envelope.classList.toggle("open");
 
+  // Envelope close hone par Final Surprise par smoothly jao
+  if (wasOpen) {
+    setTimeout(() => {
+      const finalSection = document.querySelector(".final");
+
+      if (finalSection) {
+        finalSection.scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }
+    }, 800);
+  }
 }
 
 
