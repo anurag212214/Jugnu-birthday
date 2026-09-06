@@ -1950,3 +1950,164 @@ pointer-events: none;
   }
 
 }
+/* =========================================
+   CINEMATIC MEMORY SCROLL REVEAL
+========================================= */
+
+.memories {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft cinematic background */
+.memories::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 50% 20%,
+      rgba(230, 120, 170, 0.10),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 20% 70%,
+      rgba(255, 190, 130, 0.05),
+      transparent 30%
+    );
+
+  pointer-events: none;
+}
+
+/* Individual memory */
+.photo-card {
+  position: relative;
+  opacity: 0;
+  transform:
+    translateY(70px)
+    scale(0.94);
+
+  filter: blur(7px);
+
+  transition:
+    opacity 1.1s ease,
+    transform 1.2s cubic-bezier(.2,.8,.2,1),
+    filter 1.1s ease;
+
+  will-change: transform, opacity, filter;
+}
+
+/* Revealed memory */
+.photo-card.show {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  filter: blur(0);
+}
+
+/* Photo itself */
+.photo-card img {
+  transform: scale(1.04);
+
+  transition:
+    transform 1.8s cubic-bezier(.2,.8,.2,1),
+    filter 1.2s ease;
+
+  filter: brightness(0.88);
+}
+
+/* Slow cinematic zoom after reveal */
+.photo-card.show img {
+  transform: scale(1);
+
+  filter: brightness(1);
+}
+
+/* Caption */
+.photo-card p {
+  opacity: 0;
+  transform: translateY(18px);
+
+  transition:
+    opacity 0.9s ease 0.35s,
+    transform 0.9s ease 0.35s;
+}
+
+/* Caption appears slightly after photo */
+.photo-card.show p {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tiny cinematic number feeling through spacing */
+.photo-card:nth-child(odd) {
+  transition-delay: 0.05s;
+}
+
+.photo-card:nth-child(even) {
+  transition-delay: 0.12s;
+}
+
+
+/* =========================================
+   MEMORY HOVER / TOUCH FEEL
+========================================= */
+
+.photo-card img {
+  border-radius: 4px;
+}
+
+.photo-card:hover img {
+  transform: scale(1.025);
+}
+
+
+/* =========================================
+   MEMORY HINT
+========================================= */
+
+.memories .hint {
+  opacity: 0;
+
+  transform: translateY(25px);
+
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease;
+}
+
+.memories .hint.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .photo-card {
+    transform:
+      translateY(45px)
+      scale(0.96);
+
+    filter: blur(5px);
+  }
+
+  .photo-card.show {
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+  .photo-card p {
+    transform: translateY(12px);
+  }
+
+}
