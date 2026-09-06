@@ -1901,3 +1901,36 @@ pointer-events: none;
   }
 
 }
+/* =========================
+   FIX: SCROLL SLOWLY POSITION
+========================= */
+
+.hero .scroll {
+  position: relative !important;
+  left: auto !important;
+  bottom: auto !important;
+
+  transform: none !important;
+
+  margin-top: 28px !important;
+
+  text-align: center;
+  z-index: 10;
+
+  color: rgba(215, 168, 189, 0.85);
+
+  opacity: 0;
+  animation:
+    scrollReveal 1.2s ease 2.5s forwards,
+    scrollFloat 2.5s ease-in-out 3.5s infinite;
+}
+
+.hero .scroll span {
+  display: block !important;
+  margin-top: 7px !important;
+
+  font-size: 10px !important;
+  letter-spacing: 3px;
+
+  color: rgba(220, 200, 210, 0.75);
+}
