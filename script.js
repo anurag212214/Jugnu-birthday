@@ -5,40 +5,39 @@
 function openSurprise() {
 
   const opening = document.getElementById("opening");
-  const mainContent = document.getElementById("mainContent");
+  const main = document.getElementById("mainContent");
 
-  opening.style.transition = "opacity 1.2s ease";
-  opening.style.opacity = "0";
+  if (!opening || !main) return;
+
+  // Cinematic transition
+  opening.classList.add("opening-exit");
 
   setTimeout(() => {
 
-    opening.classList.add("hidden");
-    mainContent.classList.remove("hidden");
+    opening.style.display = "none";
 
-    const bgMusic = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
+    main.classList.remove("hidden");
+    main.classList.add("main-reveal");
 
-    if (bgMusic) {
-      bgMusic.play().catch(() => {
-        console.log("Music needs user interaction.");
-      });
+    // Existing music
+    const music = document.getElementById("bgMusic");
+
+    if (music) {
+      music.volume = 0.35;
+      music.play().catch(() => {});
     }
 
-    if (musicBtn) {
-      musicBtn.innerHTML = "🔊";
-      musicBtn.classList.add("playing");
+    // Existing floating hearts
+    if (typeof createHeart === "function") {
+      createHeart();
     }
 
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+    setTimeout(() => {
+      main.classList.remove("main-reveal");
+    }, 1800);
 
-    createHearts();
-
-  }, 1200);
+  }, 1000);
 }
-
 
 /* =========================
    FLOATING HEARTS
