@@ -158,16 +158,20 @@ button:hover {
 }
 
 .scroll {
+.scroll {
   position: absolute;
-  bottom: 30px;
+  bottom: 75px;
   color: #b995a7;
   font-size: 20px;
   animation: float 2s infinite ease-in-out;
+  z-index: 10;
 }
 
 .scroll span {
-  font-size: 10px;
-  letter-spacing: 2px;
+  display: block;
+  margin-top: 6px;
+  font-size: 11px;
+  letter-spacing: 3px;
 }
 
 
