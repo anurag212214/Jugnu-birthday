@@ -1,288 +1,281 @@
-/* =========================
-   OPEN SURPRISE
-========================= */
+document.addEventListener("DOMContentLoaded", () => {
 
-function openSurprise() {
+  // OPEN SURPRISE
+  window.openSurprise = function () {
+    const opening = document.getElementById("opening");
+    const main = document.getElementById("mainContent");
 
-  const opening = document.getElementById("opening");
-  const main = document.getElementById("mainContent");
+    if (!opening || !main) return;
 
-  if (!opening || !main) return;
+    opening.classList.add("opening-exit");
 
-  // Cinematic transition
-  opening.classList.add("opening-exit");
+    setTimeout(() => {
+      opening.style.display = "none";
+      main.classList.remove("hidden");
+      main.classList.add("main-reveal");
 
-  setTimeout(() => {
+      startAtmosphere();
+      createRain();
+      revealOnScroll();
 
-    opening.style.display = "none";
+      const music = document.getElementById("bgMusic");
 
-    main.classList.remove("hidden");
-    main.classList.add("main-reveal");
+      if (music) {
+        music.volume = 0.35;
+        music.play()
+          .then(() => updateMusic(true))
+          .catch(() => updateMusic(false));
+      }
 
-    // Existing music
+      createHearts(20);
+
+      setTimeout(() => {
+        main.classList.remove("main-reveal");
+      }, 1800);
+
+    }, 1000);
+  };
+
+
+  // MUSIC
+  window.toggleMusic = function () {
     const music = document.getElementById("bgMusic");
+    if (!music) return;
 
-    if (music) {
-      music.volume = 0.35;
-      music.play().catch(() => {});
+    if (music.paused) {
+      music.play()
+        .then(() => updateMusic(true))
+        .catch(() => {});
+    } else {
+      music.pause();
+      updateMusic(false);
     }
+  };
 
-    // Existing floating hearts
-    if (typeof createHeart === "function") {
-      createHeart();
-    }
+  function updateMusic(playing) {
+    const btn = document.getElementById("musicBtn");
+    if (!btn) return;
 
-    setTimeout(() => {
-      main.classList.remove("main-reveal");
-    }, 1800);
-
-  }, 1000);
-}
-
-/* =========================
-   FLOATING HEARTS
-========================= */
-
-function createHearts() {
-
-  for (let i = 0; i < 22; i++) {
-
-    const heart = document.createElement("div");
-
-    heart.innerHTML = "♥";
-
-    heart.style.position = "fixed";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.bottom = "-30px";
-    heart.style.fontSize =
-      (10 + Math.random() * 18) + "px";
-
-    heart.style.color =
-      "rgba(233,166,197,0.7)";
-
-    heart.style.pointerEvents = "none";
-    heart.style.zIndex = "9999";
-
-    document.body.appendChild(heart);
-
-    const duration = 4 + Math.random() * 4;
-
-    heart.animate(
-      [
-        {
-          transform: "translateY(0) rotate(0deg)",
-          opacity: 0
-        },
-        {
-          transform: "translateY(-40vh) rotate(30deg)",
-          opacity: 1
-        },
-        {
-          transform: "translateY(-110vh) rotate(-30deg)",
-          opacity: 0
-        }
-      ],
-      {
-        duration: duration * 1000,
-        easing: "ease-out"
-      }
-    );
-
-    setTimeout(() => {
-      heart.remove();
-    }, duration * 1000);
+    btn.innerHTML = playing ? "🔊" : "🎵";
+    btn.classList.toggle("playing", playing);
   }
-}
 
 
-/* =========================
-   CINEMATIC SCROLL REVEAL
-========================= */
+  // FLOATING HEARTS
+  function createHearts(amount = 15) {
+    for (let i = 0; i < amount; i++) {
+      setTimeout(() => {
+        const heart = document.createElement("div");
 
-const revealElements = document.querySelectorAll(
-  ".story-card, .photo-card, .reason, .letter"
-);
+        heart.className = "floating-heart";
+        heart.innerHTML = Math.random() > 0.5 ? "♥" : "♡";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.bottom = "-30px";
+        heart.style.fontSize = 10 + Math.random() * 16 + "px";
 
-if ("IntersectionObserver" in window) {
+        document.body.appendChild(heart);
 
-  const revealObserver = new IntersectionObserver(
-    (entries) => {
+        const duration = 5000 + Math.random() * 4000;
 
-      entries.forEach((entry) => {
-
-        if (entry.isIntersecting) {
-
-          entry.target.style.opacity = "1";
-          entry.target.style.transform +=
-            " translateY(0)";
-
-          revealObserver.unobserve(entry.target);
-        }
-
-      });
-
-    },
-    {
-      threshold: 0.15
-    }
-  );
-
-  revealElements.forEach((element) => {
-
-    element.style.opacity = "0";
-
-    element.style.transition =
-      "opacity 1s ease, transform 1s ease";
-
-    revealObserver.observe(element);
-
-  });
-
-}
-
-
-/* =========================
-   SECTION FADE
-========================= */
-
-const sections =
-  document.querySelectorAll("section");
-
-if ("IntersectionObserver" in window) {
-
-  const sectionObserver =
-    new IntersectionObserver(
-      (entries) => {
-
-        entries.forEach((entry) => {
-
-          if (entry.isIntersecting) {
-
-            entry.target.classList.add("visible");
-
+        heart.animate(
+          [
+            { transform: "translateY(0) rotate(0)", opacity: 0 },
+            { transform: "translateY(-45vh) rotate(20deg)", opacity: 0.7 },
+            { transform: "translateY(-110vh) rotate(-20deg)", opacity: 0 }
+          ],
+          {
+            duration,
+            easing: "ease-out",
+            fill: "forwards"
           }
+        );
 
-        });
+        setTimeout(() => heart.remove(), duration + 100);
+      }, i * 150);
+    }
+  }
 
-      },
-      {
-        threshold: 0.15
-      }
+
+  // LOVE PARTICLES
+  function startAtmosphere() {
+    if (document.querySelector(".love-particles")) return;
+
+    const box = document.createElement("div");
+    box.className = "love-particles";
+
+    const symbols = ["♡", "♥", "✦", "✧"];
+
+    for (let i = 0; i < 30; i++) {
+      const p = document.createElement("span");
+
+      p.textContent =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+      p.style.left = Math.random() * 100 + "%";
+      p.style.top = Math.random() * 100 + "%";
+      p.style.animationDelay = Math.random() * 5 + "s";
+
+      box.appendChild(p);
+    }
+
+    document.body.appendChild(box);
+  }
+
+
+  // MEMORY RAIN
+  function createRain() {
+    const rain = document.querySelector(".rain-layer");
+    if (!rain) return;
+
+    rain.innerHTML = "";
+
+    for (let i = 0; i < 70; i++) {
+      const drop = document.createElement("span");
+
+      drop.className = "rain-drop";
+      drop.style.left = Math.random() * 100 + "%";
+      drop.style.animationDuration =
+        0.5 + Math.random() * 0.7 + "s";
+      drop.style.animationDelay =
+        Math.random() * 1.5 + "s";
+
+      rain.appendChild(drop);
+    }
+  }
+
+
+  // SCROLL REVEAL
+  function revealOnScroll() {
+    const items = document.querySelectorAll(
+      ".story-card, .photo-card, .reason"
     );
 
-  sections.forEach((section) => {
-    sectionObserver.observe(section);
-  });
+    if (!items.length) return;
 
-}
+    items.forEach(item => item.classList.add("memory-reveal"));
 
-
-/* =========================
-   MUSIC
-========================= */
-
-function toggleMusic() {
-
-  const bgMusic =
-    document.getElementById("bgMusic");
-
-  const musicBtn =
-    document.getElementById("musicBtn");
-
-  if (!bgMusic) return;
-
-  if (bgMusic.paused) {
-
-    bgMusic.play().catch(() => {});
-
-    if (musicBtn) {
-      musicBtn.innerHTML = "🔊";
-      musicBtn.classList.add("playing");
+    if (!("IntersectionObserver" in window)) {
+      items.forEach(item => item.classList.add("is-visible"));
+      return;
     }
 
-  } else {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12
+    });
 
-    bgMusic.pause();
+    items.forEach(item => observer.observe(item));
+  }
 
-    if (musicBtn) {
-      musicBtn.innerHTML = "🎵";
-      musicBtn.classList.remove("playing");
+
+  // ENVELOPE
+  window.openLetter = function () {
+    const envelope = document.querySelector(".envelope-wrapper");
+    if (!envelope) return;
+
+    envelope.classList.toggle("open");
+
+    if (envelope.classList.contains("open")) {
+      createHearts(8);
+    } else {
+      setTimeout(() => {
+        document.querySelector(".final")
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+      }, 600);
     }
-
-  }
-}
+  };
 
 
-/* =========================
-   RAIN EFFECT
-========================= */
+  // FINAL CONFETTI
+  const finalSection = document.querySelector(".final");
 
-function createRain() {
-
-  const rainLayer =
-    document.querySelector(".rain-layer");
-
-  if (!rainLayer) return;
-
-  rainLayer.innerHTML = "";
-
-  for (let i = 0; i < 90; i++) {
-
-    const drop =
-      document.createElement("span");
-
-    drop.className = "rain-drop";
-
-    drop.style.left =
-      Math.random() * 100 + "%";
-
-    drop.style.animationDuration =
-      (0.5 + Math.random() * 0.7) + "s";
-
-    drop.style.animationDelay =
-      Math.random() * 1.5 + "s";
-
-    drop.style.opacity =
-      0.3 + Math.random() * 0.6;
-
-    rainLayer.appendChild(drop);
-  }
-}
-
-
-/* =========================
-   OPEN ROMANTIC LETTER
-========================= */
-
-function openLetter() {
-
-  const envelope =
-    document.querySelector(".envelope-wrapper");
-
-  if (!envelope) return;
-
-  const wasOpen = envelope.classList.contains("open");
-
-  envelope.classList.toggle("open");
-
-  // Envelope close hone par Final Surprise par smoothly jao
-  if (wasOpen) {
-    setTimeout(() => {
-      const finalSection = document.querySelector(".final");
-
-      if (finalSection) {
-        finalSection.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+  if (finalSection && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        createHearts(18);
+        createConfetti(50);
+        observer.disconnect();
       }
-    }, 800);
+    }, {
+      threshold: 0.35
+    });
+
+    observer.observe(finalSection);
   }
-}
 
 
-/* =========================
-   START RAIN
-========================= */
+  function createConfetti(amount = 40) {
+    const box = document.createElement("div");
+    box.className = "confetti-container";
 
-createRain();
+    const shapes = ["●", "■", "♥", "✦"];
+
+    for (let i = 0; i < amount; i++) {
+      const piece = document.createElement("span");
+
+      piece.textContent =
+        shapes[Math.floor(Math.random() * shapes.length)];
+
+      piece.style.left = Math.random() * 100 + "vw";
+      piece.style.top = "-20px";
+
+      box.appendChild(piece);
+
+      const duration = 1800 + Math.random() * 2500;
+
+      piece.animate(
+        [
+          { transform: "translateY(0) rotate(0)", opacity: 1 },
+          {
+            transform:
+              `translateY(110vh) translateX(${Math.random() * 160 - 80}px) rotate(720deg)`,
+            opacity: 0
+          }
+        ],
+        {
+          duration,
+          easing: "ease-out",
+          fill: "forwards"
+        }
+      );
+    }
+
+    document.body.appendChild(box);
+
+    setTimeout(() => box.remove(), 5000);
+  }
+
+
+  // SECTION VISIBILITY
+  const sections = document.querySelectorAll("main section");
+
+  if ("IntersectionObserver" in window) {
+    const sectionObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, {
+      threshold: 0.08
+    });
+
+    sections.forEach(section =>
+      sectionObserver.observe(section)
+    );
+  }
+
+
+  // MUSIC INITIAL STATE
+  updateMusic(false);
+
+});
