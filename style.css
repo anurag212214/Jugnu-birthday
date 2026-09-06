@@ -815,12 +815,12 @@ pointer-events: none;
   pointer-events: none;
 }
 
-.envelope-wrapper.open .letter-paper {
+..envelope-wrapper.open .letter-paper {
   opacity: 1 !important;
   visibility: visible !important;
   transform: translateY(-115px) scale(1);
   pointer-events: auto;
-  z-index: 6;
+  z-index: 20 !important;
 }
 
 /* Hint */
