@@ -185,11 +185,11 @@ document.addEventListener("DOMContentLoaded", () => {
       createHearts(8);
     } else {
       setTimeout(() => {
-        document.querySelector(".final")
-          ?.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-          });
+        document.querySelector("#cakeSection")
+  ?.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
       }, 600);
     }
   };
@@ -282,7 +282,6 @@ document.addEventListener("DOMContentLoaded", () => {
 window.makeWish = function () {
   const flames = document.querySelectorAll(".cake .flame");
   const hint = document.querySelector(".cake-tap-hint");
-  const message = document.getElementById("wishMessage");
 
   flames.forEach(flame => {
     flame.classList.add("blown");
@@ -291,11 +290,6 @@ window.makeWish = function () {
   if (hint) {
     hint.textContent = "Wish sent into the stars ✨❤️";
     hint.classList.add("wish-made");
-  }
-
-  if (message) {
-    message.textContent = "May your wish find its way to you. ❤️";
-    message.classList.add("wish-made");
   }
 
   createHearts(15);
