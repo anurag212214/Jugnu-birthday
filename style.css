@@ -3727,3 +3727,37 @@ body.wish-moment::after {
     transform: scale(1.1);
   }
 }
+.cake-section .cake-scene {
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cake-section .cake {
+  position: relative;
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1.25);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.cake-section .cake-candles,
+.cake-section .candle,
+.cake-section .flame,
+.cake-section .cake-top,
+.cake-section .cake-middle,
+.cake-section .cake-bottom,
+.cake-section .cake-plate {
+  display: block;
+  visibility: visible;
+}
+
+@media (max-width: 600px) {
+  .cake-section .cake {
+    transform: scale(1.05);
+  }
+}
